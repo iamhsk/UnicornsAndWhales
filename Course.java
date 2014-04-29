@@ -1,13 +1,7 @@
 package validation;
 
-/*
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-*/
-
 public class Course {
+
     private String courseNum;
     private String department;
     private String callNum;
@@ -95,5 +89,5 @@ public class Course {
     public String getAbsence() {
         return absence;
     }
-
+	
 }
