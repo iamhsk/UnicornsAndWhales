@@ -1,0 +1,91 @@
+package validation;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ValidateCourses {
+
+    public static void main(String[] args) throws IOException {
+        try {
+            List<Course> course = new ArrayList<Course>(); //creates array list of course objects
+            File f = new File("courses.txt"); //locates file
+            Scanner s = new Scanner(f); //creates scanner object
+            s.nextLine(); //tell scanner to skip first line in input file containing column headings
+            while(s.hasNextLine()){ //start while loop to scan all input file until no more lines
+                String line = s.nextLine(); //put each line of data into a string
+                String[] details = line.split("\\|"); //split each string of data between pipes | in the line and put them into an array
+                String courseNum = details[0]; //put each string from the array into a string
+                String department = details[1];
+                String callNum = details[2];
+                String days = details[3];
+                String time = details[4];
+                String instructor = details[5];
+                String roomNum = details[6];
+                String building = details[7];
+                String enrolledNum = details[8];
+                String absence = details[9];
+
+                int count = 1;
+                /*
+                List<Boolean> testValue = new ArrayList<Boolean>();
+                testValue.add(ValidationHelper.isNotEmpty(courseNum, department, callNum, days, time, instructor, roomNum, building, enrolledNum, absence, count)); //call method to test for empty values
+                testValue.add(ValidationHelper.isValidInteger(courseNum));
+                testValue.add(ValidationHelper.checkRange(courseNum));
+
+                for (boolean b : testValue){
+                	if (b == true){
+                		Course c = new Course(courseNum, department, callNum, days, time, instructor, roomNum, building, enrolledNum, absence); //add those strings into the room object
+                		course.add(c); //add that room object to the array of rooms created earlier
+                		System.out.println("This line has pass the validation");
+                		count++;
+                	} else {
+                		System.out.println("Input did not pass the validation");
+                	}
+                }
+                */
+                ValidationHelper.isNotEmpty(courseNum, department, callNum, days, time, instructor, roomNum, building, enrolledNum, absence, count);
+                Course c = new Course(courseNum, department, callNum, days, time, instructor, roomNum, building, enrolledNum, absence); //add those strings into the room object
+                course.add(c); //add that room object to the array of rooms created earlier
+                count++;
+            }
+            printInput(course); //call method to print the input stored in list of room objects
+        } catch (FileNotFoundException e) { //if file not found throw error message
+            e.printStackTrace();
+        }
+    }
+
+    private static void printInput(List<Course> c1) { //method that accepts list of room objects and prints them
+        List<Course> course = c1;
+        System.out.printf("\t\t" +  "CourseNum"		//print statement to print details of each line
+                +  " Department"
+                +  " CallNum"
+                +  " Days"
+                +  " Time"
+                +  " Instructor"
+                +  " RoomNum"
+                +  " Building"
+                +  " EnrolledNum"
+                +  " Absence" + "\n");
+        int count1 = 1; //create a count for the line number in the loop
+        for(Course c: course){ //test loop to loop through the array of room objects and look at the data
+            //System.out.printf("%-15s %15s %n", r.getRoomNum(), r.getBuilding(), r.getCapacity(), r.getCampus(),  r.getMaintenanceDay(),  r.getStartTime(),  r.getDuration());
+            //System.out.printf("\n %10 %10 %10 %10 %10 %10", r.getRoomNum(), r.getBuilding(),  r.getCapacity(), r.getCampus(), r.getMaintenanceDay(), r.getStartTime(), r.getDuration());
+            System.out.printf("Line " + count1 + ": "
+                    + "\t" +  c.getCourseNum() //print statement to print details of each line
+                    + "\t" + c.getDepartment()
+                    + "\t " + c.getCallNum()
+                    + "\t  " + c.getDays()
+                    + "\t  " + c.getTime()
+                    + "\t" + c.getInstructor()
+                    + "\t\t  " + c.getRoomNum()
+                    + "\t  " + c.getBuilding()
+                    + "\t" + c.getEnrolledNum()
+                    + "\t  " + c.getAbsence() + "\n");
+            count1++; //increase count
+        }
+    }
+}
