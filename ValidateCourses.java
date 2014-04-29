@@ -137,6 +137,7 @@ public class ValidateCourses {
     //Method checking if a string consists of alphabets
     public static void isCharacter(String input){
 	   Pattern p = Pattern.compile("([a-zA-Z]");
+	   Pattern p = Pattern.compile("([a-zA-Z])");
 	   Matcher m = p.matcher(input);
 	   if (!m.matches()) {
 		   System.out.println("Input should consist of alphabetical characters");
